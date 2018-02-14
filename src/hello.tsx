@@ -1,5 +1,5 @@
 import * as React from "react";
 
-export const HelloComponent = () => {
-  return <h2>Hello component! Neat.</h2>;
+export const HelloComponent = (props: { userName: string }) => {
+  return <h2>Hello user: {props.userName}</h2>;
 };
