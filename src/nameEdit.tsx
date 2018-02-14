@@ -3,41 +3,34 @@ import { Fragment } from "react";
 import { Component } from "react";
 
 interface Props {
-  initialUserName: string;
-  onNameUpdated: (newName: string) => any;
+  editingUserName: string;
+  onEditingNameUpdated: (newEditingName: string) => any;
+  onNameUpdateRequest: () => void;
 }
 
-interface State {
-  editingName: string;
-}
-
-export class NameEditComponent extends Component<Props, State> {
+export class NameEditComponent extends Component<Props, {}> {
   constructor(props: Props) {
     super(props);
-    this.state = { editingName: this.props.initialUserName };
   }
-
-  onChange = event => {
-    this.setState({
-      editingName: event.target.value
-    });
-  };
-
-  onNameSubmit = (event: any): any => {
-    this.props.onNameUpdated(this.state.editingName);
-  };
 
   public render() {
     return (
       <div>
         <label>Update Name:</label>
-        <input value={this.state.editingName} onChange={this.onChange} />
         <input
-          type="submit"
-          value="Change"
-          className="btn btn-default"
-          onClick={this.onNameSubmit}
+          value={this.props.editingUserName}
+          onChange={(e): void =>
+            this.props.onEditingNameUpdated(
+              (e.target as HTMLInputElement).value
+            )
+          }
         />
+        <button
+          className="btn btn-default"
+          onClick={this.props.onNameUpdateRequest}
+        >
+          Change
+        </button>
       </div>
     );
   }
